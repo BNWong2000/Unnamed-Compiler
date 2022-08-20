@@ -1,4 +1,9 @@
 # Ignore Mac system files
 .DS_store
 
+
+# Ignore build directory
 build/
+
+#ignore generated executeable
+main.out
