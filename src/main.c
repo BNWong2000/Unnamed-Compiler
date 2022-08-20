@@ -8,6 +8,35 @@ void printHelp(){
          " Show the AST\n");
 }
 
+/**
+ * Starts the compilation process with the selected flags. 
+ * fileName     The name of the input source file. 
+ * noOp         Flag for whether or not to optimize.
+ * showAst      Flag for whether or not to print the AST.
+ * 
+ * Returns the return code (0 for success)
+ */
+int run(char *fileName, int noOp, int showAst){
+    // Open file and check if valid.
+    FILE *inputFile = fopen(fileName, "r");
+    if (inputFile == NULL) {
+        fprintf(stderr, "ERROR: Unable to open file. \n");    
+        return 1;
+    }
+
+    // Check Grammar. Use showAst here. 
+    
+
+    // Check Semantics. 
+
+    if( !noOp ) {
+        // Optimize the code.
+    }
+
+    // Output the file. 
+    return 0;
+}
+
 int main(int argc, char *argv[]){
     if( argc < 2 ) {
         fprintf(stderr, "No input file specified. Usage: ./main <File> -Options.\n\t for more options, try ./main -help");
@@ -36,7 +65,7 @@ int main(int argc, char *argv[]){
         }
         
         if(flag){
-            // 
+            return run(argv[1], noOptimization, showAst); 
         }
     }
     return 0;
