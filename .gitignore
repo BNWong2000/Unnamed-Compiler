@@ -1,6 +1,8 @@
 # Ignore Mac system files
 .DS_store
 
+# Ignore vsCode garbage
+.vscode
 
 # Ignore build directory
 build/
