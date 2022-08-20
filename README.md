@@ -4,6 +4,7 @@ Details on the nature of the language can be found in the [Language Specificatio
 
 ## Goals of the Project:
 This project is ultimately a hobby/learning project for me. Major goals include:
+- Building on the learnings of the Compilers class I took in university. 
 - Writing the project in C without the use of scanner generators or compiler compilers like lex or yacc/bison.
 - Writing my own data structures for the Compiler.
 - Attempting to write a more "realistic" language (rather than more "toy-like" languages)
