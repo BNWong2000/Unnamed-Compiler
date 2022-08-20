@@ -1,6 +1,6 @@
 # A Compiler for a C-like Language
 
-Details on the nature of the language can be found in the [Language Specification](Language-Sped.md)
+Details on the nature of the language can be found in the [Language Specification](Language-Spec.md)
 
 ## Goals of the Project:
 This project is ultimately a hobby/learning project for me. Major goals include:
