@@ -2,6 +2,11 @@
 
 Details on the nature of the language can be found in the [Language Specification](Language-Spec.md)
 
+Currently, the plan for this language is to compile the specified language into ARM64, to be run on my apple m1 machine. 
+I intend on writing my own optimizations and backend, however I also intend on using the LLVM compiler toolchain as well. 
+
+For more details on my plans for this project, see the [roadmap](roadmap.md). 
+
 ## Goals of the Project:
 This project is ultimately a hobby/learning project for me. Major goals include:
 - Building on the learnings of the Compilers class I took in university. 
