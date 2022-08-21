@@ -10,6 +10,20 @@ struct HashTableEntry {
     HashTableEntry *next;
 };
 
+/**
+ * Function for searching the chain in the hash map
+ * Returns NULL if it isn't found. 
+ */ 
+static HashTableEntry *searchTableEntryChain(HashTableEntry *chain, const char *key);
+
+/**
+ * Function for setting or creating an item in the hash map chain
+ * Returns the item.
+ */ 
+static HashTableEntry *setTableEntryInChain(HashTableEntry *chain, const char *key, void *value);
+
+static uint64_t hashString (const char *strEntry);
+
 HashTableEntry *createTableEntry(const char *key, void *value) {
     HashTableEntry *newEntry = (HashTableEntry *) malloc( sizeof(HashTableEntry) );
     if ( newEntry == NULL ) {
@@ -24,6 +38,7 @@ HashTableEntry *createTableEntry(const char *key, void *value) {
         return NULL;
     }
 
+    //TODO: change to strncpy
     strcpy(keyVal, key);
     newEntry->key = keyVal;
     newEntry->value = value;
@@ -77,35 +92,95 @@ void destroyTable(HashTable *table){
 }
 
 void *hashTableGet(HashTable *table, const char *key){
-    if (table == NULL) {
+    if (table == NULL || key == NULL) {
         return NULL;
     }
 
-    if (key == NULL) {
+    // Get the index in the table to insert info into. 
+    // Mod it with size, so we stay within the array bounds. 
+    uint64_t index = hashString(key) % table->arrayLen;
+
+    HashTableEntry *searchResult = searchTableEntryChain(table->tableEntries[index], key);
+    if(searchResult == NULL){
         return NULL;
     }
-
-    uint32_t index;
+    return searchResult->value;
 }
 
-const char *hashTableSet(HashTable *table, const char *key, void *value){
+static HashTableEntry *searchTableEntryChain(HashTableEntry *chain, const char *key) {
+    if( chain == NULL ){
+        return NULL;
+    }
+
+    HashTableEntry *curr = chain;
+
+    while(curr != NULL) {
+        if( strcmp(key, curr->key) == 0){
+            return curr;
+        }
+        curr = curr->next;
+    }
+    return NULL;
+}
+
+
+static HashTableEntry *setTableEntryInChain(HashTableEntry *chain, const char *key, void *value) {
+    HashTableEntry *curr = chain;
+    // This function is only called when chain is not null, so we don't check for nullness. 
+    while(curr->next != NULL) {
+        if(strcmp(curr->key, key) == 0) {
+            // match found in the chain
+            curr->value = value;
+            return curr;
+        }
+    }
     
+    // if we break out, we haven't found it. 
+    HashTableEntry *newEntry = createTableEntry(key, value);
+    curr->next = newEntry;
+    return curr->next;
 }
+
+HashTableEntry *hashTableSet(HashTable *table, const char *key, void *value){
+    if (table == NULL || key == NULL || value == NULL) {
+        return NULL;
+    }
+
+    // Get the index in the table to insert info into. 
+    // Mod it with size, so we stay within the array bounds. 
+    uint64_t index = hashString(key) % table->arrayLen;
+
+    if( table->tableEntries[index] == NULL ) {
+        // create new entry (no chain)
+        HashTableEntry *newEntry = createTableEntry(key, value);
+        table->tableEntries[index] = newEntry;
+        return newEntry;
+    } else {
+        // search for and set value inside of a chain. 
+        return setTableEntryInChain(table->tableEntries[index], key, value);
+    } 
+}
+
+/**
+ * Constants used for the hashing function. 
+ * see source below. 
+ */ 
+#define FNV_OFFSET_BASIS 14695981039346656037UL
+#define FNV_PRIME 1099511628211UL
 
 /** 
- * Based on the algorithm defined here:
- * https://en.wikipedia.org/wiki/MurmurHash
+ * Based on the FNV-1a hashing function.
+ * https://en.wikipedia.org/wiki/Fowler%E2%80%93Noll%E2%80%93Vo_hash_function
+ * 
+ * strEntry - String to hash. MUST BE NULL TERMINATED
  */
-uint32_t hash (const char *strEntry, size_t len) {
-    uint32_t seed = HASH_SEED;
-    uint32_t c1 = 0xcc9e2d51;
-    uint32_t c2 = 0x1b873593;
-    uint32_t r1 = 15;
-    uint32_t r2 = 13;
-    uint32_t m = 5;
-    uint32_t n = 0xe6546b64;
-    
-
-
+static uint64_t hashString (const char *strEntry) {
+    uint64_t hash = FNV_OFFSET_BASIS;
+    for( const char *item = strEntry; *item; item++ ){
+        // iterate through the string.
+        hash = hash ^ ((uint64_t) (unsigned char) (*item));
+        hash = hash * FNV_PRIME;
+    }
+    return hash;
 }
 

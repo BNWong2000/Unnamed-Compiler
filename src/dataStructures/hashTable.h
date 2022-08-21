@@ -6,9 +6,12 @@
 #include <string.h>
 
 #define INITIAL_CAPACITY 1024
-#define HASH_SEED 0xbc9f1d34
 
-// Implementation of a hash table. 
+/** Implementation of a hash table. 
+ * 
+ * This implementation uses Chaining to avoid collisions. 
+ */ 
+
 
 typedef struct HashTable HashTable;
 typedef struct HashTableEntry HashTableEntry;
@@ -45,9 +48,10 @@ void *hashTableGet(HashTable *table, const char *key);
 /**
  * A function to set a value in the hash table.
  *
- * returns a pointer to the hash table key entry. 
+ * returns a pointer to the hash table entry that it set. 
+ * value CANNOT be NULL.
  */
-const char *hashTableSet(HashTable *table, const char *key, void *value);
+HashTableEntry *hashTableSet(HashTable *table, const char *key, void *value);
 
 /**
  * Structure for the Hash Table
