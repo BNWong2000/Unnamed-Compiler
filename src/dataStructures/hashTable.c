@@ -22,6 +22,9 @@ static HashTableEntry *searchTableEntryChain(HashTableEntry *chain, const char *
  */ 
 static HashTableEntry *setTableEntryInChain(HashTableEntry *chain, const char *key, void *value);
 
+/**
+ * A function for hashing a string
+ */ 
 static uint64_t hashString (const char *strEntry);
 
 HashTableEntry *createTableEntry(const char *key, void *value) {
@@ -134,7 +137,7 @@ static HashTableEntry *setTableEntryInChain(HashTableEntry *chain, const char *k
             return curr;
         }
     }
-    
+
     // if we break out, we haven't found it. 
     HashTableEntry *newEntry = createTableEntry(key, value);
     curr->next = newEntry;
