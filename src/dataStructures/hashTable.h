@@ -53,6 +53,12 @@ void *hashTableGet(HashTable *table, const char *key);
  */
 HashTableEntry *hashTableSet(HashTable *table, const char *key, void *value);
 
+
+/**
+ * A function to print the hash table
+ */ 
+void printHashTable(HashTable *table);
+
 /**
  * Structure for the Hash Table
  */
@@ -61,6 +67,7 @@ struct HashTable {
     int arrayLen;
     int numEntries;
 };
+
 
 
 

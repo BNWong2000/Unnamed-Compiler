@@ -5,7 +5,7 @@
  * 
  */ 
 struct HashTableEntry {
-    const char *key;
+    char *key;
     void *value;
     HashTableEntry *next;
 };
@@ -74,7 +74,7 @@ HashTable *constructTable(){
     }
     
     // calloc chosen over malloc so we init values to null. 
-    table->tableEntries = (HashTableEntry *) calloc ( (size_t) INITIAL_CAPACITY, sizeof(HashTableEntry *));
+    table->tableEntries = (HashTableEntry **) calloc ( (size_t) INITIAL_CAPACITY, sizeof(HashTableEntry *));
     table->arrayLen = INITIAL_CAPACITY;
     table->numEntries = 0;
 
@@ -187,3 +187,24 @@ static uint64_t hashString (const char *strEntry) {
     return hash;
 }
 
+
+static void printChain(HashTableEntry *entry){
+    HashTableEntry *curr = entry;
+    while(curr->next != NULL) {
+        printf("%s -> ", curr->key);
+        curr = curr->next;
+    }
+    printf("%s -> NULL", curr->key);
+}
+
+void printHashTable(HashTable *table){
+    for (int i = 0; i < table->arrayLen; i++) {
+        if (table->tableEntries[i] == NULL) {
+            printf("---");
+        } else {
+            printChain(table->tableEntries[i]);
+        }
+
+        printf("\n");
+    }
+}
