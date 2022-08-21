@@ -3,6 +3,6 @@
 
 #include <stdio.h>
 #include <string.h>
-
+#include "hashTable.h"
 
 #endif
