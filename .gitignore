@@ -5,7 +5,7 @@
 .vscode
 
 # Ignore build directory
-out/
+build/
 
 #ignore generated executeable
 main.out

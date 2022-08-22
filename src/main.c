@@ -25,7 +25,7 @@ int run(char *fileName, int noOp, int showAst){
     }
 
     // Check Grammar. Use showAst here. 
-    
+    parse(inputFile, showAst);    
 
     // Check Semantics. 
 
@@ -39,7 +39,7 @@ int run(char *fileName, int noOp, int showAst){
 
 int main(int argc, char *argv[]){
     if( argc < 2 ) {
-        fprintf(stderr, "No input file specified. Usage: ./main <File> -Options.\n\t for more options, try ./main -help");
+        fprintf(stderr, "No input file specified. Usage: ./main <File> -Options.\n\t for more options, try ./main -help\n");
     } else if (argc == 2) {
         if(strcmp("-help", argv[1]) == 0){
             printHelp();

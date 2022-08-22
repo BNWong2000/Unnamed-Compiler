@@ -11,8 +11,6 @@
  * 
  * This implementation uses Chaining to avoid collisions. 
  */ 
-
-
 typedef struct HashTable HashTable;
 typedef struct HashTableEntry HashTableEntry;
 
