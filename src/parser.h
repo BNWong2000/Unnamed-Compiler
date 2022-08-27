@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "scanner.h"
 
-void parse(FILE *inputFile, int printAST);
+void parse(Scanner *scanner, int printAST);
 
 
 

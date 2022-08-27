@@ -30,3 +30,11 @@ static int isAlphaNum(char c){
     return 0;
 }
 
+
+
+
+
+Token lex(FILE *inputFile){
+    
+}
+

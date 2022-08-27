@@ -16,10 +16,16 @@ void printHelp(){
  * 
  * Returns the return code (0 for success)
  */
-int run(char *fileName, int noOp, int showAst){
+int run(const char *fileName, int noOp, int showAst){
     // Open file and check if valid.
-    FILE *inputFile = fopen(fileName, "r");
-    if (inputFile == NULL) {
+
+    FileStream *inputFile = (FileStream *) malloc(sizeof(FileStream));
+    if(inputFile == NULL){
+        fprintf(stderr, "ERROR: Unable to open file. \n");
+        return 1;
+    }
+    int streamStatus = initReadOnlyFileStream(inputFile, fileName);
+    if ( streamStatus != 0 ) {
         fprintf(stderr, "ERROR: Unable to open file. \n");    
         return 1;
     }
