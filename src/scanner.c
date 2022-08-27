@@ -34,7 +34,7 @@ static int isAlphaNum(char c){
 
 
 
-Token lex(FILE *inputFile){
+Token *lex(Scanner *scanner){
     
 }
 

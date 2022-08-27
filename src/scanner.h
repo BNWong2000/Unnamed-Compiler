@@ -5,15 +5,15 @@
 #include "util/fileIO.h"
 #include <stdio.h>
 
-Token lex(FILE *inputFile);
 
 struct Scanner {
     int currLine;
     int currCol;
-    
+    FileStream *stream; 
 };
 
 typedef struct Scanner Scanner;
 
+Token *lex( Scanner *scanner );
 
 #endif

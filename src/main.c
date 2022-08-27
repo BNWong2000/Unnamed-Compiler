@@ -31,7 +31,8 @@ int run(const char *fileName, int noOp, int showAst){
     }
 
     // Check Grammar. Use showAst here. 
-    parse(inputFile, showAst);
+    Parser *parser = initParser(inputFile);
+    parse(parser, showAst);
     
     free(inputFile);
     // Check Semantics. 

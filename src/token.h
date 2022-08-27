@@ -89,7 +89,7 @@ enum TokenType{
     T_STRING_LIT,
 
     T_IDENTIFIER,
-    T_EOF_TOKEN
+    T_EOF
 };
 
 
