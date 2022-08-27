@@ -1,6 +1,8 @@
 #ifndef TOKEN_H
 #define TOKEN_H
 
+#include <stdio.h>
+
 
 enum TokenType{
     // brace = {}, paren = (), bracket = []
@@ -108,6 +110,12 @@ struct Token{
 };
 
 typedef struct Token Token;
+
+/**
+ * A function to print a token for debugging and testing.
+ *
+ */
+void printToken(Token *token);
 
 
 #endif
