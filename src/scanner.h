@@ -2,6 +2,7 @@
 #define SCANNER_H
 
 #include "token.h"
+#include "util/fileIO.h"
 #include <stdio.h>
 
 Token lex(FILE *inputFile);

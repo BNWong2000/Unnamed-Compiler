@@ -18,7 +18,7 @@ void printHelp(){
  */
 int run(const char *fileName, int noOp, int showAst){
     // Open file and check if valid.
-
+    printf("here\n");
     FileStream *inputFile = (FileStream *) malloc(sizeof(FileStream));
     if(inputFile == NULL){
         fprintf(stderr, "ERROR: Unable to open file. \n");
@@ -31,8 +31,9 @@ int run(const char *fileName, int noOp, int showAst){
     }
 
     // Check Grammar. Use showAst here. 
-    parse(inputFile, showAst);    
-
+    parse(inputFile, showAst);
+    
+    free(inputFile);
     // Check Semantics. 
 
     if( !noOp ) {
@@ -51,6 +52,7 @@ int main(int argc, char *argv[]){
             printHelp();
         } else {
             // Single file. Attempt to open. 
+            return run(argv[1], 0, 0);
         }
     } else { 
         int noOptimization = 0;

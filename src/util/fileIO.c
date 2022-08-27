@@ -1,9 +1,6 @@
 #include "fileIO.h"
 
 
-
-
-
 int initReadOnlyFileStream(FileStream *stream, const char *fileName){
     FILE *input = fopen(fileName, "r");
 
@@ -28,8 +25,37 @@ int initReadOnlyFileStream(FileStream *stream, const char *fileName){
     return 0;
 }
 
-char readChar(FileStream *stream){
-    return '$';
+int readChar(FileStream *stream){
+    if(stream->currIndex >= stream->currBuffSize ){ 
+        // buffer has already been exhausted.
+        if( stream->fileFinishedReading ){
+            // reached EOF
+            return EOF;
+        }
+        
+        // Otherwise re-fill the buffer.
+        stream->currIndex = 0;
+        int buffSize = (int) fread(stream->readBuffer, 1, READ_BUFFER_SIZE, stream->inputFile);
+
+        if(stream->currBuffSize < READ_BUFFER_SIZE) {
+            fclose(stream->inputFile);
+            stream->fileFinishedReading = 1;
+        }
+
+        // Edge case - Previous buffer read filled the buffer
+        // and also reached EOF. 
+        if(stream->currBuffSize <= 0) {
+            return EOF;
+        }
+
+        stream->currBuffSize = buffSize;
+    }
+
+    // At this point, we know the buffer has something in it. 
+    int result = stream->readBuffer[stream->currIndex];
+    stream->currIndex++;
+    // could also just return stream->charBuffer[stream->currIndex++] but I hate that syntax tbh. 
+    return result;
 }
 
 

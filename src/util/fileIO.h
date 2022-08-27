@@ -36,6 +36,6 @@ int initReadOnlyFileStream(FileStream *stream, const char *fileName);
 /**
  * A function for buffered reading of a char from the input stream. 
  */
-char readChar (FileStream *stream); 
+int readChar (FileStream *stream); 
 
 #endif

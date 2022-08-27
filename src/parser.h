@@ -4,8 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "scanner.h"
+#include "util/fileIO.h"
 
-void parse(Scanner *scanner, int printAST);
+void parse(FileStream *scanner, int printAST);
 
 
 
