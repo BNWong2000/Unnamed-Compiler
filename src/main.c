@@ -18,7 +18,6 @@ void printHelp(){
  */
 int run(const char *fileName, int noOp, int showAst){
     // Open file and check if valid.
-    printf("here\n");
     FileStream *inputFile = (FileStream *) malloc(sizeof(FileStream));
     if(inputFile == NULL){
         fprintf(stderr, "ERROR: Unable to open file. \n");

@@ -31,10 +31,35 @@ static int isAlphaNum(char c){
 }
 
 
-
-
-
 Token *lex(Scanner *scanner){
-    
+    while(isspace(scanner->currChar)){
+        if(scanner->currChar == '\n') {
+            scanner->currLine++;
+            scanner->currCol = 0;
+        }
+        nextChar(scanner);
+    }
+    switch (scanner->currChar){
+        case EOF:
+            return makeToken(T_EOF, scanner->currLine, scanner->currCol, "");
+        default:
+            nextChar(scanner);
+            return makeToken(T_BIT_AND, scanner->currLine, scanner->currCol, "");
+    }
 }
 
+Token *makeToken( TokenType theType, int line, int col, char *lexeme){
+    Token *result = (Token *) malloc(sizeof(Token));
+    if ( result == NULL ){
+        fprintf(stderr,"ERROR: out of memory\n");
+        return NULL;
+    }
+    result->theType = theType;
+    result->lineNum = line;
+    result->colNum = col;
+    return result;
+}
+
+void nextChar(Scanner *scanner){
+    scanner->currChar = readChar(scanner->stream);
+}
